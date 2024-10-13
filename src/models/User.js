@@ -21,12 +21,10 @@ const userSchema = new mongoose.Schema({
   },
   status: {
     type: String,
-    required: false,
     default: '⛵️',
   },
   role: {
     type: String,
-    required: false,
     default: 'Gebruiker',
   },
 });

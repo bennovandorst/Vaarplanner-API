@@ -4,6 +4,7 @@ import dotenv from 'dotenv';
 import connectDB from './config/db.js';
 import log, { getTimestamp } from './config/logger.js';
 import userRoutes from './routes/userRoutes.js';
+import adminRoutes from './routes/adminRoutes.js';
 
 dotenv.config();
 
@@ -27,7 +28,8 @@ app.get('/v1/status', (req, res) => {
   res.status(200).json({ message: 'Vaarplanner API V1 Online' });
 });
 
-app.use('/v1', userRoutes);
+app.use('/v1/user', userRoutes);
+app.use('/v1/admin', adminRoutes);
 
 app.listen(PORT, () => {
   log(`[${getTimestamp()}] 🚀 Server running on http://localhost:${PORT}`, 'yellow');

@@ -1,7 +1,7 @@
 import User from '../models/User.js';
 import jwt from 'jsonwebtoken';
 import log from '../config/logger.js';
-import { getTimestamp } from '../config/logger.js'; // Make sure to import getTimestamp
+import { getTimestamp } from '../config/logger.js';
 
 export const getUser = async (req, res) => {
   const token = req.headers['authorization']?.split(' ')[1];
@@ -82,6 +82,16 @@ export const updateStatus = async (req, res) => {
         return res.status(401).json({ message: 'Invalid token' });
       }
       
+      log(`[${getTimestamp()}] ❌ Internal server error: ${error}`, 'red');
+      return res.status(500).json({ message: 'Internal server error' });
+    }
+  };
+
+  export const getAllUsers = async (req, res) => {
+    try {
+      const users = await User.find().select('-password');
+      res.json({ users });
+    } catch (error) {
       log(`[${getTimestamp()}] ❌ Internal server error: ${error}`, 'red');
       return res.status(500).json({ message: 'Internal server error' });
     }
