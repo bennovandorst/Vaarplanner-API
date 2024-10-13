@@ -2,7 +2,7 @@ import express from 'express';
 import cors from 'cors';
 import dotenv from 'dotenv';
 import connectDB from './config/db.js';
-import logger, { getTimestamp } from './config/logger.js';
+import log, { getTimestamp } from './config/logger.js';
 import userRoutes from './routes/userRoutes.js';
 
 dotenv.config();
@@ -30,5 +30,5 @@ app.get('/v1/status', (req, res) => {
 app.use('/v1', userRoutes);
 
 app.listen(PORT, () => {
-  logger(`[${getTimestamp()}] 🚀 Server running on http://localhost:${PORT}`, 'yellow');
+  log(`[${getTimestamp()}] 🚀 Server running on http://localhost:${PORT}`, 'yellow');
 });

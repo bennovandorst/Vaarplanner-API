@@ -1,6 +1,6 @@
 import jwt from 'jsonwebtoken';
 import User from '../models/User.js';
-import log from '../config/logger.js';
+import log, { getTimestamp } from '../config/logger.js';
 
 export const authenticate = async (req, res, next) => {
   const token = req.headers['authorization']?.split(' ')[1];
