@@ -18,7 +18,7 @@ const getColorFunction = (color) => {
   const colorFunctions = {
     white: chalk.white,
     yellow: chalk.yellow,
-    green: chalk.green,
+    green: chalk.bold.green,
     red: chalk.red,
     blue: chalk.blue,
   };
