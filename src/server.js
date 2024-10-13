@@ -20,7 +20,7 @@ const PORT = process.env.PORT || 5005;
 connectDB();
 
 app.get('/', (req, res) => {
-  res.redirect('https://vaarplanner.nl');
+  res.send('⛵️👀');
 });
 
 app.get('/v1/status', (req, res) => {
