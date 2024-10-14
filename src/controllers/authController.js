@@ -5,7 +5,7 @@ import log from '../config/logger.js';
 import { getTimestamp } from '../config/logger.js';
 
 export const register = async (req, res) => {
-  const { username, email, password } = req.body;
+  const { user, username, email, password } = req.body;
 
   try {
     if (await User.findOne({ email })) {
@@ -17,7 +17,7 @@ export const register = async (req, res) => {
     }
 
     const hashedPassword = await bcrypt.hash(password, 10);
-    const newUser = new User({ username, email, password: hashedPassword });
+    const newUser = new User({ user, username, email, password: hashedPassword });
     await newUser.save();
 
     res.status(201).json({ message: 'User registered successfully' });
