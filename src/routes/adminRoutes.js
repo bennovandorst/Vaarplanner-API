@@ -7,23 +7,19 @@ import { getAnalyticsData } from '../controllers/analyticsController.js';
 
 const router = express.Router();
 
-// Admin Authentication
 router.post('/login', adminLogin);
 router.get('/profile', authenticate, getAdminProfile);
 
-// User Management (Admin Only)
-router.get('/users', authenticate, getAllUsers);  // Get all users
-//router.post('/users', authenticate, createUser);  // Create new user
-//router.put('/users/:id', authenticate, updateUser);  // Update user by ID
-router.delete('/users/:id', authenticate, deleteAccount);  // Delete user by ID
+router.get('/users', authenticate, getAllUsers);
+//router.post('/users', authenticate, createUser);
+//router.put('/users/:id', authenticate, updateUser);
+router.delete('/users/:id', authenticate, deleteAccount);
 
-// Role Management (Admin Only)
-router.post('/roles', authenticate, createRole);  // Create new role
-router.get('/roles', authenticate, getRoles);  // Get all roles
-router.put('/roles/:id', authenticate, updateRole);  // Update role by ID
-router.delete('/roles/:id', authenticate, deleteRole);  // Delete role by ID
+router.post('/roles', authenticate, createRole);
+router.get('/roles', authenticate, getRoles);
+router.put('/roles/:id', authenticate, updateRole);
+router.delete('/roles/:id', authenticate, deleteRole);
 
-// Analytics (Admin Only)
-router.get('/analytics', authenticate, getAnalyticsData);  // Get analytics data
+router.get('/analytics', authenticate, getAnalyticsData); 
 
 export default router;

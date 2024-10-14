@@ -2,7 +2,7 @@ import User from '../models/User.js';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import log from '../config/logger.js';
-import { getTimestamp } from '../config/logger.js'; // Make sure to import getTimestamp
+import { getTimestamp } from '../config/logger.js';
 
 export const register = async (req, res) => {
   const { username, email, password } = req.body;

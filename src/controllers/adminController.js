@@ -3,7 +3,6 @@ import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import log, { getTimestamp } from '../config/logger.js';
 
-// Admin login
 export const adminLogin = async (req, res) => {
   const { email, password } = req.body;
 
@@ -29,7 +28,6 @@ export const adminLogin = async (req, res) => {
   }
 };
 
-// Get Admin Profile
 export const getAdminProfile = async (req, res) => {
   try {
     const user = await User.findById(req.user.id).select('-password');

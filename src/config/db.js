@@ -10,7 +10,7 @@ const connectDB = async () => {
     log(`[MongoDB] ✅ Database connected`, 'green');
   } catch (error) {
     log(`[MongoDB] ❌ Database connection error: ${error}`, 'red');
-    process.exit(1); // Exit the process if DB connection fails
+    process.exit(1); 
   }
 };
 
