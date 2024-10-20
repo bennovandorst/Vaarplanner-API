@@ -19,10 +19,6 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  phone: {
-    type: String,
-    required: false,
-  },
   status: {
     type: String,
     default: '⛵️',
@@ -31,6 +27,10 @@ const userSchema = new mongoose.Schema({
     type: String,
     default: 'Gebruiker',
   },
+  avatar: {
+    type: String,
+    required: false,
+  }
 });
 
 const User = mongoose.model('User', userSchema);

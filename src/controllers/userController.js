@@ -1,7 +1,8 @@
 import User from '../models/User.js';
 import jwt from 'jsonwebtoken';
-import log from '../config/logger.js';
-import { getTimestamp } from '../config/logger.js';
+import log, { getTimestamp } from '../config/logger.js';
+import fs from 'fs';
+import path from 'path';
 
 export const getUser = async (req, res) => {
   const token = req.headers['authorization']?.split(' ')[1];
@@ -96,3 +97,74 @@ export const updateStatus = async (req, res) => {
       return res.status(500).json({ message: 'Internal server error' });
     }
   };
+
+  export const uploadAvatar = async (req, res) => {
+    try {
+        if (!req.file) {
+            return res.status(400).json({ message: 'No file uploaded' });
+        }
+
+        const user = await User.findById(req.user.id);
+
+        user.avatar = `${req.file.filename}`;
+        await user.save();
+
+        res.json({ message: 'Avatar uploaded successfully', avatar: user.avatar });
+    } catch (error) {
+        res.status(500).json({ message: 'Error uploading avatar', error });
+    }
+};
+
+export const updateAvatar = async (req, res) => {
+    try {
+        const user = await User.findById(req.user.id);
+
+        if (!user) {
+            return res.status(404).json({ message: 'User not found' });
+        }
+
+        if (!req.file) {
+            return res.status(400).json({ message: 'No file uploaded' });
+        }
+
+        if (user.avatar) {
+            const oldAvatarPath = path.join(__dirname, '..', '..', user.avatar);
+            fs.unlink(oldAvatarPath, (err) => {
+                if (err) console.log('Failed to delete old avatar:', err);
+            });
+        }
+
+        user.avatar = `${req.file.filename}`;
+        await user.save();
+
+        res.json({ message: 'Avatar updated successfully', avatar: user.avatar });
+    } catch (error) {
+        res.status(500).json({ message: 'Error updating avatar', error });
+    }
+};
+
+export const deleteAvatar = async (req, res) => {
+    try {
+        const user = await User.findById(req.user.id);
+
+        if (!user) {
+            return res.status(404).json({ message: 'User not found' });
+        }
+
+        if (user.avatar) {
+            const avatarPath = path.join(__dirname, '..', '..', user.avatar);
+            fs.unlink(avatarPath, (err) => {
+                if (err) console.log('Failed to delete avatar:', err);
+            });
+
+            user.avatar = null;
+            await user.save();
+
+            res.json({ message: 'Avatar deleted successfully' });
+        } else {
+            res.status(400).json({ message: 'No avatar to delete' });
+        }
+    } catch (error) {
+        res.status(500).json({ message: 'Error deleting avatar', error });
+    }
+};
