@@ -106,7 +106,7 @@ export const updateStatus = async (req, res) => {
 
         const user = await User.findById(req.user.id);
 
-        user.avatar = `/uploads/avatars/${req.file.filename}`;
+        user.avatar = `${req.file.filename}`;
         await user.save();
 
         res.json({ message: 'Avatar uploaded successfully', avatar: user.avatar });
@@ -134,7 +134,7 @@ export const updateAvatar = async (req, res) => {
             });
         }
 
-        user.avatar = `/uploads/avatars/${req.file.filename}`;
+        user.avatar = `${req.file.filename}`;
         await user.save();
 
         res.json({ message: 'Avatar updated successfully', avatar: user.avatar });
