@@ -25,6 +25,8 @@ app.get('/', (req, res) => {
   res.send('⛵️👀');
 });
 
+app.use('/uploads/avatars', express.static('uploads/avatars'));
+
 app.get('/v1/status', (req, res) => {
   res.status(200).json({ message: 'Vaarplanner API V1 Online' });
 });
